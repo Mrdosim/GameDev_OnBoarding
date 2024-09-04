@@ -217,7 +217,7 @@ Animator:
   m_GameObject: {fileID: 215583559}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: -4275691732042547456, guid: 0da916bb7cc4048448d8630376485623, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6782959159af310408ff8b8be4a42dc4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -238,6 +238,8 @@ GameObject:
   m_Component:
   - component: {fileID: 344786643}
   - component: {fileID: 344786644}
+  - component: {fileID: 344786646}
+  - component: {fileID: 344786645}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -296,6 +298,45 @@ CapsuleCollider2D:
   m_Offset: {x: 0.007821679, y: 0.13036013}
   m_Size: {x: 0.47392774, y: 0.73927975}
   m_Direction: 0
+--- !u!114 &344786645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344786642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16923ba89db40704ca20ac42825631f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &344786646
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344786642}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
