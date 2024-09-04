@@ -16,15 +16,15 @@ public class Arrow : MonoBehaviour
 
     void Update()
     {
-        rb.velocity = Vector3.right * speed;
+        rb.velocity = Vector2.right * speed;
 
         if (transform.position.x > maxX)
         {
-            pool.ReturnObject(this.gameObject);
+            pool.ReturnObject(gameObject);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // 적과 충돌했을 때
         if (other.CompareTag("Monster"))
@@ -32,14 +32,9 @@ public class Arrow : MonoBehaviour
             Monster monster = other.GetComponent<Monster>();
             if (monster != null)
             {
-                monster.TakeDamage(damage); // 몬스터에게 데미지를 입힘
+                monster.TakeDamage(damage);
             }
-
-            // 화살이 적에게 충돌한 후 풀로 반환
             pool.ReturnObject(gameObject);
         }
-
-        // 다른 오브젝트와 충돌해도 화살을 풀로 반환
-        pool.ReturnObject(gameObject);
     }
 }
