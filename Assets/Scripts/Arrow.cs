@@ -6,7 +6,8 @@ public class Arrow : MonoBehaviour
     public int damage = 100;
     public float maxX = 3f;
 
-    private ObjectPool pool; // 오브젝트 풀 참조
+    private ObjectPool pool;
+    public Rigidbody2D rb;
 
     void Start()
     {
@@ -15,7 +16,7 @@ public class Arrow : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
+        rb.velocity = Vector3.right * speed;
 
         if (transform.position.x > maxX)
         {
