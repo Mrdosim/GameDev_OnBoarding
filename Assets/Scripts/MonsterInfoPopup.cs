@@ -1,15 +1,18 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class MonsterInfoPopup : MonoBehaviour
 {
     public GameObject popup;
-    public Text nameText;
-    public Text gradeText;
-    public Text speedText;
-    public Text healthText;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI gradeText;
+    public TextMeshProUGUI speedText;
+    public TextMeshProUGUI healthText;
 
     private MonsterData currentMonsterData;
+    private Coroutine autoCloseCoroutine;
 
     void Start()
     {
@@ -24,6 +27,18 @@ public class MonsterInfoPopup : MonoBehaviour
         speedText.text = "속도: " + data.Speed;
         healthText.text = "체력: " + data.Health;
         popup.SetActive(true);
+
+        if (autoCloseCoroutine != null)
+        {
+            StopCoroutine(autoCloseCoroutine);
+        }
+        autoCloseCoroutine = StartCoroutine(AutoClosePopup(2f));
+    }
+
+    IEnumerator AutoClosePopup(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ClosePopup();
     }
 
     public void ClosePopup()
@@ -31,4 +46,3 @@ public class MonsterInfoPopup : MonoBehaviour
         popup.SetActive(false);
     }
 }
-
