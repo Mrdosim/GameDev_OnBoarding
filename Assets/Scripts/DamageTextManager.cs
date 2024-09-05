@@ -30,7 +30,6 @@ public class DamageTextManager : MonoBehaviour
             Color effectiveStartColor = startColor ?? defaultStartColor;
             Color effectiveEndColor = endColor ?? defaultEndColor;
 
-            // 풀에서 데미지 텍스트 오브젝트 가져오기
             GameObject damageTextObject = ObjectPool.Instance.GetObject("DamageText");
             TextMeshProUGUI damageText = damageTextObject.GetComponent<TextMeshProUGUI>();
             damageText.text = damageAmount.ToString();

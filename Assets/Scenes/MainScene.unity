@@ -379,7 +379,7 @@ MonoBehaviour:
   attackInterval: 1
   arrowSpawnPoint: {fileID: 261177801}
   arrowSpeed: 10
-  attackRange: 10
+  attackRange: 2.5
   monsterLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -605,6 +605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1015946868}
+  healthIncreaseRate: 1.2
 --- !u!4 &611193834
 Transform:
   m_ObjectHideFlags: 0

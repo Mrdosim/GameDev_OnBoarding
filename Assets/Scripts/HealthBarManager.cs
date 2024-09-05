@@ -30,6 +30,11 @@ public class HealthBarManager : MonoBehaviour
 
     public void UpdateHealth(float currentHealth)
     {
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+            healthBarSlider.value = 0;
+        }
         healthBarSlider.value = currentHealth;
         healthText.text = $"{currentHealth}/{healthBarSlider.maxValue}";
     }

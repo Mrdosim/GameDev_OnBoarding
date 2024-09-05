@@ -8,6 +8,8 @@ public class MonsterSpawner : MonoBehaviour
 
     private List<MonsterData> monsterList = new List<MonsterData>();
     private int currentMonsterIndex = 0;
+    private int cycleCount = 0;
+    public float healthIncreaseRate = 1.5f;
 
     void Start()
     {
@@ -17,23 +19,19 @@ public class MonsterSpawner : MonoBehaviour
 
     void LoadMonsterData()
     {
-        TextAsset csvFile = Resources.Load<TextAsset>("SampleMonster"); // Resources 폴더의 monsters.csv 파일을 로드
+        TextAsset csvFile = Resources.Load<TextAsset>("SampleMonster");
         if (csvFile != null)
         {
             string[] data = csvFile.text.Split('\n');
-            for (int i = 1; i < data.Length; i++) // 첫 번째 줄은 헤더이므로 무시
+            for (int i = 1; i < data.Length; i++)
             {
                 string[] row = data[i].Split(',');
-                if (row.Length >= 4) // 데이터의 길이가 올바른지 확인
+                if (row.Length >= 4) 
                 {
                     MonsterData monsterData = new MonsterData(row[0], row[1], float.Parse(row[2]), int.Parse(row[3]));
                     monsterList.Add(monsterData);
                 }
             }
-        }
-        else
-        {
-            Debug.LogError("몬스터 CSV 파일을 찾을 수 없습니다.");
         }
     }
 
@@ -43,13 +41,23 @@ public class MonsterSpawner : MonoBehaviour
         {
             MonsterData data = monsterList[currentMonsterIndex];
 
-            GameObject monster = ObjectPool.Instance.GetObject(data.Name);
+            int increasedHealth = Mathf.RoundToInt(data.Health * Mathf.Pow(healthIncreaseRate, cycleCount));
+            MonsterData modifiedData = new MonsterData(data.Name, data.Grade, data.Speed, increasedHealth);
+
+            GameObject monster = ObjectPool.Instance.GetObject(modifiedData.Name);
             if (monster != null)
             {
                 monster.transform.position = spawnPoint.position;
                 Monster monsterScript = monster.GetComponent<Monster>();
-                monsterScript.Initialize(data);
-                currentMonsterIndex = (currentMonsterIndex + 1) % monsterList.Count; // 리스트 끝에 도달하면 처음으로 돌아감
+                monsterScript.Initialize(modifiedData);
+
+                currentMonsterIndex = (currentMonsterIndex + 1) % monsterList.Count;
+
+                if (currentMonsterIndex == 0)
+                {
+                    cycleCount++;
+                }
+                monsterScript.Move();
             }
         }
     }
