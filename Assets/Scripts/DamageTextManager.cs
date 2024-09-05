@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
@@ -6,6 +7,7 @@ public class DamageTextManager : MonoBehaviour
 {
     public static DamageTextManager Instance { get; private set; }
 
+    public GameObject damageTextPrefab;
     public Canvas canvas;
 
     public Color defaultStartColor = Color.red;
@@ -30,12 +32,12 @@ public class DamageTextManager : MonoBehaviour
             Color effectiveStartColor = startColor ?? defaultStartColor;
             Color effectiveEndColor = endColor ?? defaultEndColor;
 
-            GameObject damageTextObject = ObjectPool.Instance.GetObject("DamageText");
+            GameObject damageTextObject = Instantiate(damageTextPrefab, canvas.transform);
             TextMeshProUGUI damageText = damageTextObject.GetComponent<TextMeshProUGUI>();
             damageText.text = damageAmount.ToString();
             damageText.color = effectiveStartColor;
 
-            damageTextObject.transform.position = Camera.main.WorldToScreenPoint(position);
+            damageTextObject.transform.position = position;
 
             RectTransform rectTransform = damageTextObject.GetComponent<RectTransform>();
 
@@ -45,7 +47,7 @@ public class DamageTextManager : MonoBehaviour
             sequence.Join(damageText.DOFade(0, 1.5f));
             sequence.Join(damageText.DOColor(effectiveEndColor, 1.5f));
 
-            sequence.OnComplete(() => ObjectPool.Instance.ReturnObject(damageTextObject, "DamageText")); // 애니메이션 끝나면 풀에 반환
+            sequence.OnComplete(() => Destroy(damageTextObject));
         }
     }
 }
