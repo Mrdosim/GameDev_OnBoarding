@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        GameObject arrow = arrowPool.GetObject();
+        GameObject arrow = arrowPool.GetObject("ArrowPrefabName");
         arrow.transform.position = arrowSpawnPoint.position;
 
         animator.SetBool("Idle", true);

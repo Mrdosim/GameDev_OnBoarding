@@ -6,13 +6,8 @@ public class Arrow : MonoBehaviour
     public int damage = 100;
     public float maxX = 3f;
 
-    private ObjectPool pool;
     public Rigidbody2D rb;
 
-    void Start()
-    {
-        pool = GameObject.Find("ArrowPool").GetComponent<ObjectPool>();
-    }
 
     void Update()
     {
@@ -20,13 +15,12 @@ public class Arrow : MonoBehaviour
 
         if (transform.position.x > maxX)
         {
-            pool.ReturnObject(gameObject);
+            ObjectPool.Instance.ReturnObject(gameObject, "Arrow"); // 화살을 풀에 반환
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // 적과 충돌했을 때
         if (other.CompareTag("Monster"))
         {
             Monster monster = other.GetComponent<Monster>();
@@ -34,7 +28,7 @@ public class Arrow : MonoBehaviour
             {
                 monster.TakeDamage(damage);
             }
-            pool.ReturnObject(gameObject);
+            ObjectPool.Instance.ReturnObject(gameObject, "Arrow"); // 충돌 후 화살 반환
         }
     }
 }
