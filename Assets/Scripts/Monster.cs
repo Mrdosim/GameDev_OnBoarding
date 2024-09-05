@@ -1,9 +1,10 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Monster : MonoBehaviour
-{
-    public MonsterData monsterData; // monsterData 변수를 추가
+{ 
+    public MonsterData monsterData;
     public int maxHealth;
     public int currentHealth;
     public float moveSpeed;
@@ -17,7 +18,7 @@ public class Monster : MonoBehaviour
         monsterData = data;
         maxHealth = data.Health;
         currentHealth = maxHealth;
-        moveSpeed = data.Speed; // 몬스터 데이터에서 속도 초기화
+        moveSpeed = data.Speed;
         spawner = FindObjectOfType<MonsterSpawner>();
         HealthBarManager.Instance.SetHealth(maxHealth, currentHealth);
     }
@@ -34,7 +35,7 @@ public class Monster : MonoBehaviour
         currentHealth -= damage;
         animator.SetTrigger("Hurt");
         HealthBarManager.Instance.UpdateHealth(currentHealth);
-
+        DamageTextManager.Instance.ShowDamageText(transform.position+Vector3.up*3, damage);
         if (currentHealth <= 0 && !isDead)
         {
             isDead = true;
@@ -49,10 +50,8 @@ public class Monster : MonoBehaviour
 
     public void Move()
     {
-        // 몬스터가 이동할 목표 위치를 설정합니다.
         Vector3 targetPosition = new Vector3(1, -3.55f, 0);
 
-        // 이동 시간을 moveSpeed에 비례하여 설정합니다.
         float moveDuration = Vector3.Distance(transform.position, targetPosition) / moveSpeed;
 
         transform.DOMove(targetPosition, moveDuration, false)

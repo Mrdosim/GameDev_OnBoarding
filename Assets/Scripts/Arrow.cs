@@ -15,10 +15,9 @@ public class Arrow : MonoBehaviour
 
         if (transform.position.x > maxX)
         {
-            ObjectPool.Instance.ReturnObject(gameObject, "Arrow"); // 화살을 풀에 반환
+            ObjectPool.Instance.ReturnObject(gameObject, "Arrow");
         }
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Monster"))
@@ -28,7 +27,7 @@ public class Arrow : MonoBehaviour
             {
                 monster.TakeDamage(damage);
             }
-            ObjectPool.Instance.ReturnObject(gameObject, "Arrow"); // 충돌 후 화살 반환
+            ObjectPool.Instance.ReturnObject(gameObject, "Arrow");
         }
     }
 }

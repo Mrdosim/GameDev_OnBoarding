@@ -196,3 +196,4 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   moveSpeed: 0
+  infoButton: {fileID: 0}
