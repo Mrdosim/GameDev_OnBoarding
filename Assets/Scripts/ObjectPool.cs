@@ -27,10 +27,11 @@ public class ObjectPool : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    void Start()
-    {
+        foreach (var item in poolItems)
+        {
+            Debug.Log($"Prefab Name: {item.prefabName}, Initial Size: {item.initialSize}");
+        }
         InitializePools();
     }
 
@@ -51,7 +52,6 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    // 특정 프리팹 이름에 맞는 오브젝트 가져오기
     public GameObject GetObject(string prefabName)
     {
         if (poolDictionary.ContainsKey(prefabName))

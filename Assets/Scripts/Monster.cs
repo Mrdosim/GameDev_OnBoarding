@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
@@ -7,7 +8,8 @@ public class Monster : MonoBehaviour
     public int currentHealth;
     public float moveSpeed;
     private MonsterSpawner spawner;
-    private MonsterHealthBar healthBar;
+
+    private Animator animator;
 
     public void Initialize(MonsterData data)
     {
@@ -16,14 +18,19 @@ public class Monster : MonoBehaviour
         currentHealth = maxHealth;
         moveSpeed = data.Speed;
         spawner = FindObjectOfType<MonsterSpawner>();
-        healthBar = GetComponentInChildren<MonsterHealthBar>();
-        healthBar.SetHealth(maxHealth); // 초기 체력 설정
+        HealthBarManager.Instance.SetHealth(maxHealth, currentHealth);
+    }
+    void OnEnable()
+    {
+        animator = GetComponent<Animator>();
+
+        Move();
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        healthBar.UpdateHealthBar(currentHealth); // 체력바 업데이트
+        HealthBarManager.Instance.UpdateHealth(currentHealth);
         if (currentHealth <= 0)
         {
             Die();
@@ -32,12 +39,19 @@ public class Monster : MonoBehaviour
 
     void Die()
     {
-        spawner.OnMonsterDie(gameObject); // 스폰 제어로 몬스터 죽음 알림
+        spawner.OnMonsterDie(gameObject);
     }
 
-    void Update()
+    void Move()
     {
-        // 몬스터 이동
-        transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
+        transform.DOMove(new Vector3(1, -3.55f, 0), 2f, false)
+            .OnComplete(() =>
+            {
+                animator.SetBool("Walk", false);
+                animator.SetBool("Idle", true);
+            });
+        animator.SetBool("Walk", true);
+        animator.SetBool("Idle", false);
     }
+
 }

@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
         arrowPool = FindObjectOfType<ObjectPool>();
 
         Move();
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        GameObject arrow = arrowPool.GetObject("ArrowPrefabName");
+        GameObject arrow = arrowPool.GetObject("Arrow");
         arrow.transform.position = arrowSpawnPoint.position;
 
         animator.SetBool("Idle", true);

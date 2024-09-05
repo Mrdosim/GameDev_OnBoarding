@@ -17,15 +17,18 @@ public class MonsterSpawner : MonoBehaviour
 
     void LoadMonsterData()
     {
-        string filePath = Path.Combine(Application.streamingAssetsPath, "monsters.csv");
-        if (File.Exists(filePath))
+        TextAsset csvFile = Resources.Load<TextAsset>("SampleMonster"); // Resources 폴더의 monsters.csv 파일을 로드
+        if (csvFile != null)
         {
-            string[] data = File.ReadAllLines(filePath);
-            for (int i = 1; i < data.Length; i++)
+            string[] data = csvFile.text.Split('\n');
+            for (int i = 1; i < data.Length; i++) // 첫 번째 줄은 헤더이므로 무시
             {
                 string[] row = data[i].Split(',');
-                MonsterData monsterData = new MonsterData(row[0], row[1], float.Parse(row[2]), int.Parse(row[3]));
-                monsterList.Add(monsterData);
+                if (row.Length >= 4) // 데이터의 길이가 올바른지 확인
+                {
+                    MonsterData monsterData = new MonsterData(row[0], row[1], float.Parse(row[2]), int.Parse(row[3]));
+                    monsterList.Add(monsterData);
+                }
             }
         }
         else
@@ -36,7 +39,7 @@ public class MonsterSpawner : MonoBehaviour
 
     void SpawnNextMonster()
     {
-        if (currentMonsterIndex < monsterList.Count)
+        if (monsterList.Count > 0)
         {
             MonsterData data = monsterList[currentMonsterIndex];
 
@@ -46,7 +49,7 @@ public class MonsterSpawner : MonoBehaviour
                 monster.transform.position = spawnPoint.position;
                 Monster monsterScript = monster.GetComponent<Monster>();
                 monsterScript.Initialize(data);
-                currentMonsterIndex++;
+                currentMonsterIndex = (currentMonsterIndex + 1) % monsterList.Count; // 리스트 끝에 도달하면 처음으로 돌아감
             }
         }
     }
