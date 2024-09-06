@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1006371339473",
+    "project_id": "onboarding-a4f58",
+    "storage_bucket": "onboarding-a4f58.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006371339473:android:77dd199ef4ff9333a359f0",
+        "android_client_info": {
+          "package_name": "com.firebase.onboarding"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb4efyES3IBYgd0h1G38_f-ff1H5ButwA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
