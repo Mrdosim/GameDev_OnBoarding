@@ -4,7 +4,13 @@
   
  
 ## 시연영상
-https://github.com/user-attachments/assets/9e9d691b-6e0c-42a2-9196-f0b9fe10164d
+
+
+https://github.com/user-attachments/assets/df76d43e-50a5-43bc-8d34-13332b6d6842
+
+
+
+
 
 ## 구현목록
 
