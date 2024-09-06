@@ -25,3 +25,5 @@ https://github.com/user-attachments/assets/9e9d691b-6e0c-42a2-9196-f0b9fe10164d
 6. 데이터 순서대로 반복해서 몬스터 등장
 
 7. 몬스터 선택 시 팝업창을 띄워 정보 표시
+
+8. Firebase연동 이메일 로그인 기능 추가
